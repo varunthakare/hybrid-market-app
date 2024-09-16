@@ -154,7 +154,6 @@ class _SignupPageState extends State<SignupPage> {
               ),
               items: const [
                 DropdownMenuItem(value: 'Farmer', child: Text('Farmer')),
-                DropdownMenuItem(value: 'Retailer', child: Text('Retailer')),
                 DropdownMenuItem(value: 'Consumer', child: Text('Consumer')),
               ],
             ),
