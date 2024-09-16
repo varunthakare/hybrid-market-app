@@ -3,6 +3,9 @@ import 'signin_page.dart'; // Import the SignInPage
 import 'dashboard_page.dart'; // Import the DashboardPage
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'consumer_dash_page.dart';
+import 'dashboard_page.dart';
+import 'farmer_dash_page.dart';
 
 class SignupPage extends StatefulWidget {
   final String mobileno;
@@ -40,17 +43,30 @@ class _SignupPageState extends State<SignupPage> {
     );
 
     if (response.statusCode == 200) {
-      print("Registered");
-      // After registration, navigate to the dashboard
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => DashboardPage()), // Navigate to DashboardPage
-      );
+      // Parse the response body
+      final responseBody = jsonDecode(response.body);
+      String role = responseBody['role'];
+
+      print("Registered as $role");
+
+      // Navigate to different dashboard based on the role
+      if (role == 'Farmer') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => FarmerDashPage()), // Replace with actual Farmer Dashboard Page
+        );
+      } else if (role == 'Consumer') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ConsumerDashPage()), // Replace with actual Consumer Dashboard Page
+        );
+      }
     } else {
       print("Failed to Register");
       // Handle registration failure (e.g., show error message)
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
