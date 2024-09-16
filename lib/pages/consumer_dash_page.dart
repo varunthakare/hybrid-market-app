@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-class ConsumerDashPage extends StatelessWidget {
+class ConsumerDashPage extends StatefulWidget {
+  @override
+  _ConsumerDashPageState createState() => _ConsumerDashPageState();
+}
+
+class _ConsumerDashPageState extends State<ConsumerDashPage> {
   final bool hasProducts = false; // Set to true if products are available
+  final TextEditingController _searchController = TextEditingController();
 
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +27,21 @@ class ConsumerDashPage extends StatelessWidget {
           children: [
             Expanded(
               child: TextField(
+                controller: _searchController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
                   prefixIcon: Icon(Icons.search, color: Colors.green),
-                  hintText: 'Search',
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: Icon(Icons.clear, color: Colors.red),
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() {}); // Update the state to refresh the UI
+                          },
+                        )
+                      : null,
+                  hintText: 'e.g. city, state',
                   contentPadding: EdgeInsets.symmetric(vertical: 10), // Reduced height
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -33,6 +52,9 @@ class ConsumerDashPage extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
+                onChanged: (value) {
+                  setState(() {}); // Refresh the UI when the text changes
+                },
               ),
             ),
             SizedBox(width: 10),
@@ -78,13 +100,13 @@ class ConsumerDashPage extends StatelessWidget {
               child: Center(
                 child: hasProducts
                     ? Text(
-                  "Consumer Dashboard Content",
-                  style: TextStyle(fontSize: 18, color: Colors.black54),
-                )
+                        "Consumer Dashboard Content",
+                        style: TextStyle(fontSize: 18, color: Colors.black54),
+                      )
                     : Text(
-                  "Products are not available",
-                  style: TextStyle(fontSize: 18, color: Colors.red),
-                ),
+                        "Products are not available",
+                        style: TextStyle(fontSize: 18, color: Colors.red),
+                      ),
               ),
             ),
           ),

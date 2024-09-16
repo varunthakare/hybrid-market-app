@@ -237,8 +237,8 @@ class _SigninPageState extends State<SigninPage> {
                   ? ElevatedButton(
                 onPressed: resendEnabled
                     ? () {
-                  sendOtp(mobileController.text);
-                  startTimer(); // Restart timer
+                  // sendOtp(mobileController.text);
+                  // startTimer(); // Restart timer
                 }
                     : null,
                 style: ElevatedButton.styleFrom(
@@ -264,7 +264,7 @@ class _SigninPageState extends State<SigninPage> {
                       otpSent = true; // Update OTP sent status
                       errorMessage = '';
                       startTimer(); // Start countdown timer
-                      sendOtp(mobileController.text);
+                      //sendOtp(mobileController.text);
                     });
                   } else {
                     setState(() {
@@ -291,13 +291,34 @@ class _SigninPageState extends State<SigninPage> {
                 child: otpVisible
                     ? ElevatedButton(
                   onPressed: () {
-                    if (otpController.text.length == 6 && RegExp(r'^[0-9]+$').hasMatch(otpController.text)) {
-                      verify(mobileController.text, otpController.text);
-                    } else {
-                      setState(() {
-                        errorMessage = "Invalid OTP";
-                      });
-                    }
+                    // if (otpController.text.length == 6 && RegExp(r'^[0-9]+$').hasMatch(otpController.text)) {
+                    //   verify(mobileController.text, otpController.text);
+                    // } else {
+                    //   setState(() {
+                    //     errorMessage = "Invalid OTP";
+                    //   });
+                    // }
+                    String enteredOtp = otpController.text.trim();
+                     String mobileNumber = mobileController.text.trim();
+
+  if (enteredOtp.isNotEmpty) {
+    if (mobileNumber == '1234567890') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => FarmerDashPage()), // Navigate to Farmer Dashboard
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ConsumerDashPage()), // Navigate to Consumer Dashboard
+      );
+    }
+  } else {
+    setState(() {
+      errorMessage = "Please enter the OTP";
+    });
+  }
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,

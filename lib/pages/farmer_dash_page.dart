@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+//import 'package:http/http.dart' as http;
+import 'add_product_page.dart';
+//import 'dart:convert';
 
 class FarmerDashPage extends StatelessWidget {
   final bool hasProducts = false; // Set to true if products are available
@@ -18,6 +19,10 @@ class FarmerDashPage extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {
                 // Add Product button functionality here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddProductPage()),
+                );
               },
               icon: Icon(Icons.add, color: Colors.green),
               label: Text(

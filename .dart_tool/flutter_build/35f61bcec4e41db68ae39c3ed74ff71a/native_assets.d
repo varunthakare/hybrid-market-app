@@ -1,0 +1,1 @@
+ C:\\Users\\Admin\\Documents\\GitHub\\hybrid-market-app\\.dart_tool\\flutter_build\\35f61bcec4e41db68ae39c3ed74ff71a\\native_assets.yaml: 
