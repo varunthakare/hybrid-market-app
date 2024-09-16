@@ -1,6 +1,8 @@
 import 'dart:async'; // For Timer
 import 'package:flutter/material.dart';
+import 'consumer_dash_page.dart';
 import 'dashboard_page.dart';
+import 'farmer_dash_page.dart';
 import 'signup_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -125,11 +127,26 @@ class _SigninPageState extends State<SigninPage> {
           ),
         );
       } else {
-        // If the user is already registered, redirect to DashboardPage (you need to define it)
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DashboardPage()), // Ensure DashboardPage is imported or defined
-        );
+        // Fetch user type (Assuming responseData contains 'userType')
+        String userType = responseData['userType']; // 'farmer' or 'consumer'
+
+        if (userType == 'Farmer') {
+          // If user is a farmer, navigate to FarmerPage
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FarmerDashPage()), // Ensure FarmerPage is imported or defined
+          );
+        } else if (userType == 'Consumer') {
+          // If user is a consumer, navigate to ConsumerPage
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ConsumerDashPage()), // Ensure ConsumerPage is imported or defined
+          );
+        } else {
+          setState(() {
+            errorMessage = "Unknown user type"; // Handle unknown user types
+          });
+        }
       }
     } else {
       setState(() {
@@ -137,6 +154,7 @@ class _SigninPageState extends State<SigninPage> {
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
